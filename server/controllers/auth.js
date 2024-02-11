@@ -26,7 +26,7 @@ export const register = async (req, res) => {
       firstName,
       lastName,
       email,
-      password,
+      password: passwordHash,
       picturePath,
       friends,
       location,
@@ -52,7 +52,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     // find user
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email });
     if (!user) return res.status(400).json({ msg: "User does not exist" });
 
     // check if password is correct
